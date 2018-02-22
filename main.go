@@ -3,8 +3,9 @@ package main
 import (
 	"log"
 
-	"math/rand"
 	"strings"
+
+	"math/rand"
 	"time"
 
 	"github.com/Syfaro/telegram-bot-api"
@@ -22,31 +23,28 @@ func main() {
 	u.Timeout = 2
 	updates, err := bot.GetUpdatesChan(u)
 
+	messages := []string{"Пиздаглазое мудоебище.", "Распиздяй колхозный.", "долбоебень", "блядюга", "ванючая хобитская сучка",
+		"капитан потные яички", "ебучий хуебес", "Свиноблядь ебаная", "Говнарь", "Дичь обоссаная"}
+
 	for update := range updates {
 		if update.Message == nil {
 			continue
 		}
+		rand.Seed(time.Now().UTC().UnixNano())
 
-		messages := []string{"Петух!",
-			"Пидераст!",
-			"Говно!",
-			"Чмо!",
-			"Отстой!",
-			"Лох!",
-			"Тупица!",
-			"Ванючка!"}
+		msg := tgbotapi.NewMessage(update.Message.Chat.ID, messages[rand.Intn(len(messages)-1)])
 
 		if strings.Contains(update.Message.Text, "Кини") {
-			rand.Seed(time.Now().UnixNano())
-
-			choosen := messages[rand.Intn(len(messages)-1)]
-			msg := tgbotapi.NewMessage(update.Message.Chat.ID, choosen)
 			bot.Send(msg)
-		} else if strings.Contains(update.Message.Text, "Владимир") {
-			rand.Seed(time.Now().UnixNano())
-
-			choosen := messages[rand.Intn(len(messages)-1)]
-			msg := tgbotapi.NewMessage(update.Message.Chat.ID, choosen)
+		} else if strings.Contains(update.Message.Text, "Попов") {
+			bot.Send(msg)
+		} else if strings.Contains(update.Message.Text, "кини") {
+			bot.Send(msg)
+		} else if strings.Contains(update.Message.Text, "попов") {
+			bot.Send(msg)
+		} else if strings.Contains(update.Message.Text, "Рауан") {
+			bot.Send(msg)
+		} else if strings.Contains(update.Message.Text, "рауан") {
 			bot.Send(msg)
 		}
 
